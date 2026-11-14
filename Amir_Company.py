@@ -5,8 +5,8 @@ import http.server
 import socketserver
 import threading
 import webbrowser
-
-PORT = 8000
+import os
+PORT = int(os.environ.get("PORT", 8000))
 
 HTML = r"""
 <!DOCTYPE html>
@@ -235,7 +235,7 @@ if __name__ == "__main__":
     with socketserver.TCPServer(("", PORT), Handler) as server:
         url = f"http://localhost:{PORT}"
         print(f"Al Amir Quantum : {url}  (Ctrl+C pour arrêter)")
-        threading.Timer(0.5, lambda: webbrowser.open(url)).start()
+        
         try:
             server.serve_forever()
         except KeyboardInterrupt:
